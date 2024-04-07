@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+  <h1 class="title">Take a look at all our Pals!</h1>
+    
+  {% for pet in pets %}
+    <div class="boxed-content">
+        <div class="pet_info">
+            {% if pet.photo_url %}
+            <img class="pet_photo" src="{{pet.photo_url}}" height= "150"/>
+            {% endif %}
+            <a class="box-title" href="/{{pet.id}}">{{pet.name}}</a>
+        </div>
+
+        {% if pet.available %}
+            <p>{{pet.name}} is available</p>
+        {% endif %}
+
+        {% if not pet.available %}
+            <p>{{pet.name}} is not available</p>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+
+{% endblock %}

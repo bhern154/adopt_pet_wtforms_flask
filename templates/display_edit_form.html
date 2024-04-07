@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+<h1 class="title">Hi, I'm {{pet.name}}!</h1>
+
+{% for msg in get_flashed_messages() %}
+<div>{{ msg }}</div>
+{% endfor %}
+
+<div class="pet_info">
+  {% if pet.photo_url %}
+  <img class="pet_photo" src="{{pet.photo_url}}" height= "150"/>
+  {% endif %}
+  <p class="box-title">Name: {{pet.name}}</p>
+  <p class="box-title">Species: {{pet.species}}</p>
+  <p class="box-title">Age: {{pet.age}}</p>
+  <p class="box-title">About: {{pet.notes}}</p>
+  <p class="box-title">Available: {{pet.available}}</p>
+</div>
+
+<h1 class="title">Edit Information</h1>
+
+<form id="pet-form" method="POST">
+{{ form.hidden_tag() }}
+
+{% for field in form
+       if field.widget.input_type != 'hidden' %}
+
+  <p>
+    {{ field.label }}
+    {{ field }}
+
+    {% for error in field.errors %}
+      {{ error }}
+    {% endfor %}
+  </p>
+
+{% endfor %}
+
+<button type="submit">Submit</button>
+</form>
+
+{% endblock %}
